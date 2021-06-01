@@ -60,7 +60,7 @@ function Results({ questId, schoolId }: Props) {
   }
   return (
     <div className="bg-gray-200 min-h-screen w-full flex justify-center pt-16">
-      <div className="w-full p-2 md:w-2/3 ">
+      <div className="w-full p-2 md:w-2/3 space-y-4">
         {data?.result.map((item) => {
           if (item?.type_id === 3 || item?.type_id === 4) {
             return (
