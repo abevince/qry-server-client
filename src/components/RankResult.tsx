@@ -9,12 +9,18 @@ interface TResult {
   question: string
   result: TInnerResult[]
 }
-
+interface TColumns {
+  id: number
+  question_id: number
+  content: string
+  value: number
+}
 export interface TRankResult {
   question_id: number
   question: string
   type_id: number
   position: number
+  columns: TColumns[]
   result: TResult[]
 }
 
@@ -33,9 +39,9 @@ const RankResult = ({ data }: RankResultProps) => {
         <thead className="bg-gray-50">
           <tr>
             <th></th>
-            {data.result[0].result.map((res) => (
+            {data.columns.map((res) => (
               <th
-                key={res.content}
+                key={res.id}
                 scope="col"
                 className="px-4 py-3 text-left text-xs font-light text-gray-700"
               >
