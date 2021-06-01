@@ -59,27 +59,26 @@ function Results({ questId, schoolId }: Props) {
     )
   }
   return (
-    <>
-      {/* <div className="bg-gray-50 px-6 py-2 rounded-t-lg text-gray-700">
-          Choose your grade level.
-        </div> */}
-      {data?.result.map((item) => {
-        if (item?.type_id === 3 || item?.type_id === 4) {
-          return (
-            <MultiChoiceResult
-              key={item.question_id}
-              data={item as TMultiChoiceResult}
-            />
-          )
-        } else if (item?.type_id === 6) {
-          return (
-            <RankResult key={item?.question_id} data={item as TRankResult} />
-          )
-        } else if (!item) {
-          return null
-        }
-      })}
-    </>
+    <div className="bg-gray-200 min-h-screen w-full flex justify-center pt-16">
+      <div className="w-full p-2 md:w-2/3 ">
+        {data?.result.map((item) => {
+          if (item?.type_id === 3 || item?.type_id === 4) {
+            return (
+              <MultiChoiceResult
+                key={item.question_id}
+                data={item as TMultiChoiceResult}
+              />
+            )
+          } else if (item?.type_id === 6) {
+            return (
+              <RankResult key={item?.question_id} data={item as TRankResult} />
+            )
+          } else if (!item) {
+            return null
+          }
+        })}
+      </div>
+    </div>
   )
 }
 
