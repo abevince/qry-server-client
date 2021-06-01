@@ -24,7 +24,7 @@ interface RankResultProps {
 
 const RankResult = ({ data }: RankResultProps) => {
   return (
-    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+    <li className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
       <div className="bg-gray-50 px-6 py-3 text-left text-sm font-medium text-gray-700 tracking-wider">
         {data.question}
       </div>
@@ -37,7 +37,7 @@ const RankResult = ({ data }: RankResultProps) => {
               <th
                 key={res.content}
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-light text-gray-700"
+                className="px-4 py-3 text-left text-xs font-light text-gray-700"
               >
                 {res.content}
               </th>
@@ -48,13 +48,13 @@ const RankResult = ({ data }: RankResultProps) => {
         <tbody className="bg-white divide-y divide-gray-200">
           {data.result.map((res) => (
             <tr key={res.question} className="bg-white">
-              <td className="px-6 py-2 w-1/2 whitespace-pre-wrap text-sm font-medium text-gray-500">
+              <td className="px-4 py-2 w-1/2 whitespace-pre-wrap text-sm font-medium text-gray-500">
                 {res.question}
               </td>
               {res.result.map((count) => (
                 <td
                   key={count.content}
-                  className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-700"
+                  className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-700"
                 >
                   {count._count}
                 </td>
@@ -63,7 +63,7 @@ const RankResult = ({ data }: RankResultProps) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </li>
   )
 }
 

@@ -39,12 +39,12 @@ const SchoolsPage = () => {
   return (
     <div className="bg-gray-200 min-h-screen w-full flex justify-center pt-16">
       <div className="w-full p-2 md:w-2/3 ">
-        <button
-          onClick={() => history.back()}
+        <Link
+          to="/"
           className="text-blue-600 bg-white px-4 py-2 rounded-lg hover:bg-blue-200 active:bg-blue-50"
         >
           {'Home'}
-        </button>
+        </Link>
         <ul className="space-y-2 mt-4">
           {schools.map((school) => (
             <li key={school.id}>

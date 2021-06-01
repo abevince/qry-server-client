@@ -17,7 +17,7 @@ interface MultiChoiceResultProps {
 
 const MultiChoiceResult = ({ data }: MultiChoiceResultProps) => {
   return (
-    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+    <li className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
@@ -44,7 +44,7 @@ const MultiChoiceResult = ({ data }: MultiChoiceResultProps) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </li>
   )
 }
 
