@@ -4,6 +4,7 @@ import RankResult, { TRankResult } from './RankResult'
 import { API_URL } from '../constants'
 import LoadingScreen from './LoadingScreen'
 import { Link } from 'react-router-dom'
+import { useQuery } from 'react-query'
 
 interface Props {
   questId: number
@@ -30,27 +31,42 @@ interface TResult {
   school?: TSchool
   result: (TMultiChoiceResult | TRankResult | null)[]
 }
-type TResults = {}
+function fetchResult(questId: number, schoolId: string): Promise<TResult> {
+  return fetch(`${API_URL}/results/${questId}/${schoolId}`)
+    .then((res) => res.json())
+    .catch((error) => error)
+}
 function Results({ questId, schoolId }: Props) {
-  const [data, setData] = React.useState<TResult>({
-    questionnaire: undefined,
-    school: undefined,
-    result: [],
-  })
-  const [loading, setLoading] = React.useState<boolean>(true)
-  React.useEffect(() => {
-    if (questId && schoolId) {
-      fetch(`${API_URL}/results/${questId}/${schoolId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data)
-          setLoading(false)
-        })
-    }
-  }, [questId, schoolId])
+  const { isLoading, data, error } = useQuery<TResult>(
+    ['result', questId, schoolId],
+    () => fetchResult(questId, schoolId),
+  )
+  // const [data, setData] = React.useState<TResult>({
+  //   questionnaire: undefined,
+  //   school: undefined,
+  //   result: [],
+  // })
+  // const [loading, setLoading] = React.useState<boolean>(true)
+  // React.useEffect(() => {
+  //   if (questId && schoolId) {
+  //     fetch(`${API_URL}/results/${questId}/${schoolId}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setData(data)
+  //         setLoading(false)
+  //       })
+  //   }
+  // }, [questId, schoolId])
 
-  if (loading) {
+  if (isLoading) {
     return <LoadingScreen />
+  }
+  if (error) {
+    return (
+      <div className="bg-gray-200 min-h-screen w-full flex justify-center items-center">
+        No data available
+      </div>
+    )
   }
   if (!data) {
     return (
@@ -81,9 +97,9 @@ function Results({ questId, schoolId }: Props) {
             stroke="currentColor"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>

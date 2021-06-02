@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import LoadingScreen from '../components/LoadingScreen'
 import { API_URL } from '../constants'
@@ -11,23 +12,21 @@ interface TQuestionnaire {
   status: boolean
   curr_school: string
 }
+function fetchQuestionnaire(): Promise<TQuestionnaire[]> {
+  return fetch(`${API_URL}/questionnaires`)
+    .then((res) => res.json())
+    .catch((error) => error)
+}
 const HomePage = () => {
-  const [questionnaires, setQuestionnaires] = React.useState<TQuestionnaire[]>(
-    [],
+  const { isLoading, data, error } = useQuery<TQuestionnaire[]>(
+    'questionnaires',
+    fetchQuestionnaire,
   )
-  const [loading, setLoading] = React.useState<boolean>(true)
-  React.useEffect(() => {
-    fetch(`${API_URL}/questionnaires`)
-      .then((res) => res.json())
-      .then((data) => {
-        setQuestionnaires(data)
-        setLoading(false)
-      })
-  }, [])
-  if (loading) {
+
+  if (isLoading) {
     return <LoadingScreen />
   }
-  if (!questionnaires) {
+  if (error || !data) {
     return (
       <div className="bg-gray-200 min-h-screen w-full flex justify-center items-center">
         No questionnaire available
@@ -38,7 +37,7 @@ const HomePage = () => {
     <div className="bg-gray-200 min-h-screen w-full flex justify-center pt-20">
       <div className="w-full p-2 md:w-2/3 ">
         <ul className="space-y-2">
-          {questionnaires.map((item) => (
+          {data.map((item) => (
             <li key={item.id}>
               <Link
                 to={`/schools/${item.id}`}
