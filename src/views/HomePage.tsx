@@ -3,6 +3,7 @@ import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import LoadingScreen from '../components/LoadingScreen'
 import { API_URL } from '../constants'
+import { useAuth } from '../context/authContext'
 
 interface TQuestionnaire {
   id: number
@@ -18,6 +19,7 @@ function fetchQuestionnaire(): Promise<TQuestionnaire[]> {
     .catch((error) => error)
 }
 const HomePage = () => {
+  const { logout } = useAuth()
   const { isLoading, data, error } = useQuery<TQuestionnaire[]>(
     'questionnaires',
     fetchQuestionnaire,
@@ -34,8 +36,21 @@ const HomePage = () => {
     )
   }
   return (
-    <div className="bg-gray-200 min-h-screen w-full flex justify-center pt-20">
-      <div className="w-full p-2 md:w-2/3 ">
+    <div className="bg-gray-200 min-h-screen w-full flex justify-center pt-8">
+      <div className=" w-full p-2 md:w-2/3 ">
+        <div className="w-full flex justify-between items-center">
+          <img
+            src="https://res.cloudinary.com/aralinks/image/upload/v1623233006/aralinks-logo_rt6b1u.svg"
+            alt="Aralinks logo"
+            className="w-14 mb-2"
+          />
+          <button
+            onClick={() => logout()}
+            className="text-yellow-900 font-medium px-4 py-1 bg-yellow-500 rounded-lg hover:bg-yellow-400"
+          >
+            Logout
+          </button>
+        </div>
         <ul className="space-y-2">
           {data.map((item) => (
             <li key={item.id}>
