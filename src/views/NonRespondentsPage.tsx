@@ -28,7 +28,7 @@ const NonRespondentsPage = () => {
   const { schoolName } = location.state as { schoolName: string }
 
   const { isLoading, data, error } = useQuery<TUser[]>(
-    ['respondents', params.questId, params.schoolId],
+    ['non-respondents', params.questId, params.schoolId],
     () => fetchRespondents(parseInt(params.questId), params.schoolId),
   )
 
@@ -54,7 +54,9 @@ const NonRespondentsPage = () => {
           <span className="text-base font-light">{schoolName}</span>
         </h3>
         <p className="text-gray-700 mt-2">
-          {parseInt(params.questId) === 6 ? 'Students' : 'Teachers'}
+          {`${data.length} ${
+            parseInt(params.questId) === 6 ? 'Students' : 'Teachers'
+          } are yet to answer the questionnaire`}
         </p>
         <Link
           to={`/schools/${parseInt(params.questId)}`}

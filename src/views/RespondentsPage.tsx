@@ -54,7 +54,9 @@ const RespondentsPage = () => {
           <span className="text-base font-light">{schoolName}</span>
         </h3>
         <p className="text-gray-700 mt-2">
-          {parseInt(params.questId) === 6 ? 'Students' : 'Teachers'}
+          {`${data.length} ${
+            parseInt(params.questId) === 6 ? 'Students' : 'Teachers'
+          } answered the questionnaire`}
         </p>
         <Link
           to={`/schools/${parseInt(params.questId)}`}
