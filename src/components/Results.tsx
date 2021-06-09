@@ -41,22 +41,6 @@ function Results({ questId, schoolId }: Props) {
     ['result', questId, schoolId],
     () => fetchResult(questId, schoolId),
   )
-  // const [data, setData] = React.useState<TResult>({
-  //   questionnaire: undefined,
-  //   school: undefined,
-  //   result: [],
-  // })
-  // const [loading, setLoading] = React.useState<boolean>(true)
-  // React.useEffect(() => {
-  //   if (questId && schoolId) {
-  //     fetch(`${API_URL}/results/${questId}/${schoolId}`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setData(data)
-  //         setLoading(false)
-  //       })
-  //   }
-  // }, [questId, schoolId])
 
   if (isLoading) {
     return <LoadingScreen />

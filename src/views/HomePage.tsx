@@ -41,7 +41,7 @@ const HomePage = () => {
             <li key={item.id}>
               <Link
                 to={`/schools/${item.id}`}
-                className="block bg-white py-4 px-5 rounded-lg hover:bg-gray-100"
+                className="block bg-white py-4 px-5 rounded-t-lg hover:bg-gray-100"
               >
                 <p className="text-sm font-medium text-yellow-600 opacity-80">
                   {item.program}
@@ -50,6 +50,15 @@ const HomePage = () => {
                   {item.questionnaire}
                 </p>
               </Link>
+              <div className="text-sm font-medium text-gray-700 bg-gray-400 py-1 px-5 rounded-b-lg hover:bg-gray-600 hover:text-white">
+                <a
+                  href={`${API_URL}/results/csv/${item.id}`}
+                  download
+                  target="_blank"
+                >
+                  Download CSV
+                </a>
+              </div>
             </li>
           ))}
         </ul>

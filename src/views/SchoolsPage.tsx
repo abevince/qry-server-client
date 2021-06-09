@@ -52,7 +52,7 @@ const SchoolsPage = () => {
                 <li key={school.id}>
                   <Link
                     to={`/result/${params.questId}/${school.schoolid}`}
-                    className="block bg-white py-2 px-3 rounded-lg hover:bg-gray-100"
+                    className="block bg-white py-2 px-3 rounded-t-lg hover:bg-gray-100"
                   >
                     <p className="text-xs font-medium text-yellow-600 opacity-80">
                       {school.program}
@@ -64,6 +64,30 @@ const SchoolsPage = () => {
                       {school.schoolid}
                     </p>
                   </Link>
+                  <div className="flex w-full justify-between bg-gray-700 rounded-b-lg text-center">
+                    <Link
+                      to={{
+                        pathname: `/respondents/${params.questId}/${school.schoolid}`,
+                        state: {
+                          schoolName: school.schoolname,
+                        },
+                      }}
+                      className="w-full rounded-bl-lg text-gray-200 hover:bg-gray-500"
+                    >
+                      Respondents
+                    </Link>
+                    <Link
+                      to={{
+                        pathname: `/non-respondents/${params.questId}/${school.schoolid}`,
+                        state: {
+                          schoolName: school.schoolname,
+                        },
+                      }}
+                      className="w-full rounded-br-lg text-gray-200 hover:bg-gray-500"
+                    >
+                      Non-Respondents
+                    </Link>
+                  </div>
                 </li>
               ))}
         </ul>
